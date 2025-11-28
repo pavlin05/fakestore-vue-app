@@ -1,21 +1,17 @@
 <script setup lang="ts">
-  const toggleDarkMode=()=> {
-    const root = document.documentElement
+import { useDark, useToggle } from '@vueuse/core'
 
-    if (root.classList.contains('dark')) {
-      root.classList.remove('dark')
-    } else {
-      root.classList.add('dark')
-    }
-  }
+const isDark = useDark({
+  selector: 'html',  // applica classe 'dark' al <html>
+})
+
+const toggleDarkMode2 = useToggle(isDark)
 </script>
 
 <template>
   <header>
-    <div class="bg-red-500 dark:bg-green-500">
-      Header
-    </div>
-    <button @click="toggleDarkMode">Toggle dark mode</button>
+    <div class="bg-red-500 dark:bg-green-500">Header — Dark: {{ isDark }}</div>
+    <button @click="toggleDarkMode2()">Toggle dark mode</button>
     <nav>
       <ul>
         <li><a href="#">Home</a></li>
@@ -25,7 +21,7 @@
     </nav>
   </header>
   <main>
-   <h1>Home</h1>
+    <h1>Home</h1>
   </main>
 </template>
 
