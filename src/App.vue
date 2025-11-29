@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Header from '@/components/Header.vue'
 import Main from '@/components/Main.vue'
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
 </script>
 
 <template>
@@ -10,6 +11,5 @@ import Main from '@/components/Main.vue'
       <router-view />
     </Main>
   </div>
+  <VueQueryDevtools />
 </template>
-
-<style scoped></style>

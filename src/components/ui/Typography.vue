@@ -10,6 +10,7 @@ const typography = tv({
       h2: 'text-3xl font-semibold',
       h3: 'text-2xl font-semibold',
       h4: 'text-xl font-medium',
+      h5: 'text-lg font-medium',
       p: 'text-base',
       span: 'text-sm',
     },
@@ -35,11 +36,11 @@ const typography = tv({
 })
 
 const props = defineProps<{
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span'
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span'
   bold?: boolean
   textColor?: 'default' | 'primary' | 'secondary' | 'success' | 'error' | 'white' | 'black'
   as?: string
-  class?: string
+  class?: string | string[]
 }>()
 </script>
 
