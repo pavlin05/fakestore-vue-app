@@ -7,7 +7,7 @@ import Main from '@/components/Main.vue'
   <div class="flex flex-col min-h-dvh">
     <Header />
     <Main>
-      <h1>Home</h1>
+      <router-view />
     </Main>
   </div>
 </template>

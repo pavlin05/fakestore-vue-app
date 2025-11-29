@@ -25,14 +25,6 @@ const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
 }
 
-const onWishlist = () => {
-  console.log('wishlist')
-}
-
-const onCart = () => {
-  console.log('cart')
-}
-
 const navLinks = [
   { name: 'Category1', path: '/category1' },
   { name: 'Category2', path: '/category2' },
@@ -44,6 +36,7 @@ const navLinks = [
   <header class="h-20 shadow-xl bg-gray-200 dark:bg-gray-800 transition-colors duration-300 z-1">
     <nav class="h-[inherit] flex items-center justify-between mx-auto p-4 md:p-6">
       <Button
+        size="lg"
         @click="toggleMenu"
         :icon="menuOpen ? XMarkIcon : Bars3Icon"
         class="border-0 px-2 md:hidden"
@@ -62,8 +55,12 @@ const navLinks = [
         </li>
       </ul>
       <div class="flex items-center gap-2">
-        <Button @click="onWishlist()" :icon="HeartIcon" class="border-0 px-2" />
-        <Button @click="onCart()" :icon="ShoppingCartIcon" class="border-0 px-2" />
+        <router-link to="/wishlist" class="border-0 px-2 text-gray-700 dark:text-gray-300">
+          <HeartIcon class="size-5" />
+        </router-link>
+        <router-link to="/cart" class="border-0 px-2 text-gray-700 dark:text-gray-300">
+          <ShoppingCartIcon class="size-5" />
+        </router-link>
         <Button
           @click="toggleTheme()"
           :icon="isDark ? MoonIcon : SunIcon"
