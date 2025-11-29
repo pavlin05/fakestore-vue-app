@@ -12,10 +12,15 @@ import {
 } from '@heroicons/vue/24/solid'
 import Button from '@/components/ui/Button.vue'
 import { ref } from 'vue'
+import { useCategoriesQuery } from '@/queries/useCategories.ts'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const menuOpen = ref(false)
 const isDark = useDark()
 const toggleTheme = useToggle(isDark)
+
+const { data: categories = [] } = useCategoriesQuery()
 
 const onLogout = () => {
   console.log('logout')
@@ -24,12 +29,6 @@ const onLogout = () => {
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
 }
-
-const navLinks = [
-  { name: 'Category1', path: '/category1' },
-  { name: 'Category2', path: '/category2' },
-  { name: 'Category3', path: '/category3' },
-]
 </script>
 
 <template>
@@ -45,12 +44,19 @@ const navLinks = [
         <Typography variant="p">Logo</Typography>
       </router-link>
       <ul class="hidden md:flex gap-6">
-        <li v-for="link in navLinks" :key="link.name">
-          <router-link
-            :to="link.path"
-            class="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
-          >
-            {{ link.name }}
+        <li v-for="category in categories" :key="category">
+          <router-link :to="`/?category=${category}`" active-class="text-blue-600">
+            <Typography
+              variant="span"
+              :class="[
+                route.query.category === category
+                  ? 'text-blue-600 font-bold dark:text-blue-600'
+                  : 'text-gray-800 dark:text-gray-200',
+                'hover:text-blue-600 dark:hover:text-blue-400 capitalize',
+              ]"
+            >
+              {{ category }}
+            </Typography>
           </router-link>
         </li>
       </ul>
@@ -74,9 +80,19 @@ const navLinks = [
         menuOpen ? 'translate-x-0' : '-translate-x-full'
       }`"
     >
-      <li v-for="link in navLinks" :key="link.name" class="p-8 text-center">
-        <router-link @click="toggleMenu" :to="link.path" class="text-gray-800 dark:text-gray-200">
-          {{ link.name }}
+      <li v-for="category in categories" :key="category" class="p-8 text-center">
+        <router-link @click="toggleMenu" :to="`/?category=${category}`">
+          <Typography
+            variant="span"
+            :class="[
+              route.query.category === category
+                ? 'text-blue-600 font-bold dark:text-blue-600'
+                : 'text-gray-800 dark:text-gray-200',
+              'hover:text-blue-600 dark:hover:text-blue-400 capitalize',
+            ]"
+          >
+            {{ category }}
+          </Typography>
         </router-link>
       </li>
     </ul>

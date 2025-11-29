@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/Home'
 import Product from '@/pages/Product'
-import Wishlist from '@/pages/Wishlist'
+import WishList from '@/pages/WishList'
 import Cart from '@/pages/Cart'
 
 const routes = [
@@ -18,15 +18,15 @@ const routes = [
   {
     path: '/wishlist',
     name: 'Wishlist',
-    component: Wishlist,
-    meta: { requiresAuth: true }
+    component: WishList,
+    meta: { requiresAuth: true },
   },
   {
     path: '/cart',
     name: 'Cart',
     component: Cart,
-    meta: { requiresAuth: true }
-  }
+    meta: { requiresAuth: true },
+  },
 ]
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +42,5 @@ router.beforeEach((to, from, next) => {
 
   next()
 })
-
 
 export default router
