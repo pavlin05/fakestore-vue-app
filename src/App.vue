@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import Header from '@/components/Header.vue'
+import Main from '@/components/Main.vue'
 </script>
 
 <template>
   <div class="flex flex-col min-h-dvh">
     <Header />
-    <main class="flex-1 w-full bg-gray-100 dark:bg-gray-900 p-4 overflow-auto">
+    <Main>
       <h1>Home</h1>
-    </main>
+    </Main>
   </div>
 </template>
 

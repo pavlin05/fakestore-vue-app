@@ -7,6 +7,8 @@ import {
   ArrowLeftStartOnRectangleIcon,
   Bars3Icon,
   XMarkIcon,
+  HeartIcon,
+  ShoppingCartIcon,
 } from '@heroicons/vue/24/solid'
 import Button from '@/components/ui/Button.vue'
 import { ref } from 'vue'
@@ -22,26 +24,51 @@ const onLogout = () => {
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
 }
+
+const onWishlist = () => {
+  console.log('wishlist')
+}
+
+const onCart = () => {
+  console.log('cart')
+}
+
+const navLinks = [
+  { name: 'Category1', path: '/category1' },
+  { name: 'Category2', path: '/category2' },
+  { name: 'Category3', path: '/category3' },
+]
 </script>
 
 <template>
-  <header>
-    <nav
-      class="flex items-center h-20 gap-2 p-4 justify-between shadow-xl bg-gray-200 dark:bg-gray-800"
-    >
+  <header class="h-20 shadow-xl bg-gray-200 dark:bg-gray-800 transition-colors duration-300 z-1">
+    <nav class="h-[inherit] flex items-center justify-between mx-auto p-4 md:p-6">
       <Button
         @click="toggleMenu"
         :icon="menuOpen ? XMarkIcon : Bars3Icon"
         class="border-0 px-2 md:hidden"
       />
-      <a class="flex items-center gap-2"><Typography variant="p"> Logo </Typography></a>
-      <ul class="hidden md:flex gap-2">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Home</a></li>
+      <router-link to="/" class="flex items-center gap-2">
+        <Typography variant="p">Logo</Typography>
+      </router-link>
+      <ul class="hidden md:flex gap-6">
+        <li v-for="link in navLinks" :key="link.name">
+          <router-link
+            :to="link.path"
+            class="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+          >
+            {{ link.name }}
+          </router-link>
+        </li>
       </ul>
-      <div class="flex items-center">
-        <Button @click="toggleTheme()" :icon="isDark ? MoonIcon : SunIcon" class="border-0 px-2" />
+      <div class="flex items-center gap-2">
+        <Button @click="onWishlist()" :icon="HeartIcon" class="border-0 px-2" />
+        <Button @click="onCart()" :icon="ShoppingCartIcon" class="border-0 px-2" />
+        <Button
+          @click="toggleTheme()"
+          :icon="isDark ? MoonIcon : SunIcon"
+          class="border-0 px-2 rounded-full transition-transform duration-500 transform hover:rotate-180"
+        />
         <Button @click="onLogout()" :icon="ArrowLeftStartOnRectangleIcon" class="border-0 px-2" />
       </div>
     </nav>
@@ -50,9 +77,11 @@ const toggleMenu = () => {
         menuOpen ? 'translate-x-0' : '-translate-x-full'
       }`"
     >
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Home</a></li>
+      <li v-for="link in navLinks" :key="link.name" class="p-8 text-center">
+        <router-link @click="toggleMenu" :to="link.path" class="text-gray-800 dark:text-gray-200">
+          {{ link.name }}
+        </router-link>
+      </li>
     </ul>
   </header>
 </template>
