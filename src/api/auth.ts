@@ -7,15 +7,19 @@ interface AuthPayload {
 
 const AuthApi = {
   login: async (data: AuthPayload): Promise<{ token: string }> => {
-    return fetch(`${BASE_URL}/auth/login`, {
+    const response = await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .catch((error) => console.error(error))
+
+    const text = await response.text()
+    if (!response.ok) {
+      throw new Error(text || 'Login failed')
+    }
+    return JSON.parse(text)
   },
 }
 
