@@ -5,6 +5,7 @@ import {
   MoonIcon,
   SunIcon,
   ArrowLeftStartOnRectangleIcon,
+  ArrowLeftEndOnRectangleIcon,
   Bars3Icon,
   XMarkIcon,
   HeartIcon,
@@ -14,16 +15,27 @@ import Button from '@/components/ui/Button.vue'
 import { ref } from 'vue'
 import { useCategoriesQuery } from '@/queries/useCategories.ts'
 import { useRoute } from 'vue-router'
+import useAuthMutation from '@/queries/useAuth.ts'
+import useUserStore from '@/stores/user.ts'
 
 const route = useRoute()
 const menuOpen = ref(false)
 const isDark = useDark()
 const toggleTheme = useToggle(isDark)
+const userStore = useUserStore()
 
 const { data: categories = [] } = useCategoriesQuery()
+const { mutate: login } = useAuthMutation()
 
 const onLogout = () => {
-  console.log('logout')
+  userStore.logout()
+}
+
+const onLogin = () => {
+  login({
+    username: 'kevinryan',
+    password: 'kev02937@',
+  })
 }
 
 const toggleMenu = () => {
@@ -61,10 +73,18 @@ const toggleMenu = () => {
         </li>
       </ul>
       <div class="flex items-center gap-2">
-        <router-link to="/wishlist" class="border-0 px-2 text-gray-700 dark:text-gray-300">
+        <router-link
+          to="/wishlist"
+          class="border-0 px-2 text-gray-700 dark:text-gray-300"
+          v-if="userStore.isLoggedIn"
+        >
           <HeartIcon class="size-5" />
         </router-link>
-        <router-link to="/cart" class="border-0 px-2 text-gray-700 dark:text-gray-300">
+        <router-link
+          to="/cart"
+          class="border-0 px-2 text-gray-700 dark:text-gray-300"
+          v-if="userStore.isLoggedIn"
+        >
           <ShoppingCartIcon class="size-5" />
         </router-link>
         <Button
@@ -72,7 +92,18 @@ const toggleMenu = () => {
           :icon="isDark ? MoonIcon : SunIcon"
           class="border-0 px-2 rounded-full transition-transform duration-500 transform hover:rotate-180"
         />
-        <Button @click="onLogout()" :icon="ArrowLeftStartOnRectangleIcon" class="border-0 px-2" />
+        <Button
+          @click="onLogout()"
+          :icon="ArrowLeftStartOnRectangleIcon"
+          class="border-0 px-2"
+          v-if="userStore.isLoggedIn"
+        />
+        <Button
+          @click="onLogin()"
+          :icon="ArrowLeftEndOnRectangleIcon"
+          class="border-0 px-2"
+          v-else
+        />
       </div>
     </nav>
     <ul
