@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useProductsByIdQuery } from '@/queries/useProducts.ts'
-import {
-  ArrowPathIcon,
-  HeartIcon,
-  MinusIcon,
-  PlusIcon,
-  ShoppingCartIcon,
-} from '@heroicons/vue/24/solid'
+import { ArrowPathIcon, HeartIcon, MinusIcon, PlusIcon, ShoppingCartIcon } from '@heroicons/vue/24/solid'
 import Typography from '@/components/ui/Typography.vue'
 import Button from '@/components/ui/Button.vue'
 import { HeartIcon as HearIconOutlined } from '@heroicons/vue/24/outline'
@@ -22,7 +16,7 @@ const id = route.params.id as string
 const userStore = useUserStore()
 const wishListStore = useWishlistStore()
 const cartStore = useCartStore()
-const quantity = ref(1)
+const quantity = ref<number>(1)
 
 const { data: product, isLoading } = useProductsByIdQuery(id)
 
