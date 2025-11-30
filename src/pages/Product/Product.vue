@@ -39,14 +39,6 @@ const onToggleWishlist = (product: Product) => {
     wishListStore.addToWishlist(product)
   }
 }
-
-const onAddToCart = () => {
-  cartStore.addToCart(product.value!, quantity.value)
-}
-
-const onRemoveFromCart = () => {
-  cartStore.removeFromCart(product.value!.id)
-}
 </script>
 
 <template>
@@ -58,7 +50,7 @@ const onRemoveFromCart = () => {
   </div>
   <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-10">
     <div class="flex justify-center items-center">
-      <img class="w-100 h-100 object-contain" :src="product.image" alt="" />
+      <img class="w-100 h-100 object-contain" :src="product.image" :alt="product.title" />
     </div>
     <div class="flex flex-col gap-5 md:p-5 justify-center">
       <Typography variant="h3" bold class="uppercase">{{ product.title }}</Typography>
@@ -83,7 +75,7 @@ const onRemoveFromCart = () => {
           title="Add to Cart"
           class="md:w-fit"
           :icon="ShoppingCartIcon"
-          @click="onAddToCart"
+          @click="cartStore.addToCart(product, quantity)"
         />
         <Button
           v-if="cartStore.isInCart(product.id)"
@@ -91,7 +83,7 @@ const onRemoveFromCart = () => {
           title="Remove from Cart"
           class="md:w-fit"
           :icon="ShoppingCartIcon"
-          @click="onRemoveFromCart"
+          @click="cartStore.removeFromCart(product.id)"
         />
       </div>
     </div>
