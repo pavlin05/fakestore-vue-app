@@ -12,11 +12,11 @@ import type { Product } from '@/api/products.ts'
 import useCartStore from '@/stores/cart.ts'
 
 const route = useRoute()
-const id = route.params.id as string
 const userStore = useUserStore()
 const wishListStore = useWishlistStore()
 const cartStore = useCartStore()
 const quantity = ref<number>(1)
+const id = route.params.id as string
 
 const { data: product, isLoading } = useProductsByIdQuery(id)
 
