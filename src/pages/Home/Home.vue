@@ -13,7 +13,7 @@ const { data: products, isLoading } = useProductsQuery(category)
 
 <template>
   <div v-if="isLoading" class="flex justify-center items-center py-10">
-    <ArrowPathIcon class="size-10 animate-spin" />
+    <ArrowPathIcon class="size-10 animate-spin dark:text-white" />
   </div>
   <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <div v-for="product in products" :key="product.id">

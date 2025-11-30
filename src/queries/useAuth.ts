@@ -2,7 +2,6 @@ import AuthApi from '@/api/auth.ts'
 import { useMutation } from '@tanstack/vue-query'
 import useUserStore from '@/stores/user.ts'
 
-
 const useAuthMutation = () => {
   return useMutation({
     mutationFn: AuthApi.login,
