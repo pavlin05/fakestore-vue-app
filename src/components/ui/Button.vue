@@ -5,7 +5,7 @@ import type { Component } from 'vue'
 import { ArrowPathIcon } from '@heroicons/vue/24/solid'
 
 const buttonStyle = tv({
-  base: 'rounded-md gap-2 flex items-center justify-center border transition-colors',
+  base: 'rounded-md gap-2 flex items-center justify-center border transition-colors cursor-pointer hover:opacity-90',
   variants: {
     variant: {
       outlined: '',

@@ -12,4 +12,11 @@ const useProductsQuery = (category: Ref<string | undefined>) => {
   })
 }
 
-export { useProductsQuery }
+const useProductsByIdQuery = (id: string) => {
+  return useQuery({
+    queryKey: ['product', id],
+    queryFn: () => ProductsApi.getProductById(Number(id)),
+    enabled: !!id,
+  })
+}
+export { useProductsQuery, useProductsByIdQuery }
