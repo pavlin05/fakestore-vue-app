@@ -2,40 +2,37 @@
 import { useDark, useToggle } from '@vueuse/core'
 import Typography from '@/components/ui/Typography.vue'
 import {
-  MoonIcon,
-  SunIcon,
-  ArrowLeftStartOnRectangleIcon,
   ArrowLeftEndOnRectangleIcon,
+  ArrowLeftStartOnRectangleIcon,
   Bars3Icon,
-  XMarkIcon,
   HeartIcon,
+  MoonIcon,
   ShoppingCartIcon,
+  SunIcon,
+  XMarkIcon,
 } from '@heroicons/vue/24/solid'
 import Button from '@/components/ui/Button.vue'
 import { ref } from 'vue'
 import { useCategoriesQuery } from '@/queries/useCategories.ts'
 import { useRoute } from 'vue-router'
-import useAuthMutation from '@/queries/useAuth.ts'
 import useUserStore from '@/stores/user.ts'
+import LoginModal from '@/components/LoginModal.vue'
 
 const route = useRoute()
 const menuOpen = ref(false)
 const isDark = useDark()
 const toggleTheme = useToggle(isDark)
 const userStore = useUserStore()
+const showLoginModal = ref(false)
 
 const { data: categories = [] } = useCategoriesQuery()
-const { mutate: login } = useAuthMutation()
 
 const onLogout = () => {
   userStore.logout()
 }
 
 const onLogin = () => {
-  login({
-    username: 'kevinryan',
-    password: 'kev02937@',
-  })
+  showLoginModal.value = true
 }
 
 const toggleMenu = () => {
@@ -128,6 +125,7 @@ const toggleMenu = () => {
       </li>
     </ul>
   </header>
+  <LoginModal v-model:show="showLoginModal" />
 </template>
 
 <style scoped></style>
