@@ -1,27 +1,36 @@
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { jwtDecode } from 'jwt-decode'
+import { useLocalStorage } from '@vueuse/core'
+import useCartStore from '@/stores/cart.ts'
+import useWishlistStore from '@/stores/wishlist.ts'
 
 interface JwtPayload {
   sub: number
 }
 
 const useUserStore = defineStore('user', () => {
-  const token = ref<string | null>(localStorage.getItem('token'))
-  const id = ref<number | null>(token.value ? jwtDecode<JwtPayload>(token.value)?.sub : null)
+  const token = useLocalStorage<string | null>('token', null)
+
+  const id = computed<number | null>(() =>
+    token.value ? jwtDecode<JwtPayload>(token.value)?.sub : null,
+  )
+
   const isLoggedIn = computed<boolean>(() => !!token.value)
 
   const login = (newToken: string) => {
-    const decodedToken = jwtDecode<JwtPayload>(newToken)
-    id.value = decodedToken?.sub
     token.value = newToken
-    localStorage.setItem('token', newToken)
   }
 
   const logout = () => {
+    const cartStore = useCartStore()
+    const wishlistStore = useWishlistStore()
+
     token.value = null
-    id.value = null
     localStorage.removeItem('token')
+
+    cartStore.clearCart()
+    wishlistStore.clearWishlist()
   }
 
   return { token, id, isLoggedIn, login, logout }

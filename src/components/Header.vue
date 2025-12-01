@@ -14,7 +14,7 @@ import {
 import Button from '@/components/ui/Button.vue'
 import { ref } from 'vue'
 import { useCategoriesQuery } from '@/queries/useCategories.ts'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import useUserStore from '@/stores/user.ts'
 import LoginModal from '@/components/LoginModal.vue'
 import useCartStore from '@/stores/cart.ts'
@@ -22,6 +22,7 @@ import Badge from '@/components/ui/Badge.vue'
 import useWishlistStore from '@/stores/wishlist.ts'
 
 const route = useRoute()
+const router = useRouter()
 const menuOpen = ref(false)
 const isDark = useDark()
 const toggleTheme = useToggle(isDark)
@@ -34,6 +35,7 @@ const { data: categories = [] } = useCategoriesQuery()
 
 const onLogout = () => {
   userStore.logout()
+  router.push('/')
 }
 
 const onLogin = () => {
