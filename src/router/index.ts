@@ -3,6 +3,7 @@ import Home from '@/pages/Home'
 import Product from '@/pages/Product'
 import WishList from '@/pages/WishList'
 import Cart from '@/pages/Cart'
+import useUserStore from '@/stores/user.ts'
 
 const routes = [
   {
@@ -34,9 +35,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = true
+  const userStore = useUserStore()
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
+  if (to.meta.requiresAuth && !userStore.isLoggedIn) {
     return next('/')
   }
 
