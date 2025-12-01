@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useProductsByIdQuery } from '@/queries/useProducts.ts'
-import { ArrowPathIcon, HeartIcon, MinusIcon, PlusIcon, ShoppingCartIcon } from '@heroicons/vue/24/solid'
+import {
+  ArrowPathIcon,
+  HeartIcon,
+  MinusIcon,
+  PlusIcon,
+  ShoppingCartIcon,
+} from '@heroicons/vue/24/solid'
 import Typography from '@/components/ui/Typography.vue'
 import Button from '@/components/ui/Button.vue'
 import { HeartIcon as HearIconOutlined } from '@heroicons/vue/24/outline'
@@ -50,7 +56,7 @@ const onToggleWishlist = (product: Product) => {
       <Typography variant="h3" bold class="uppercase">{{ product.title }}</Typography>
       <Typography>{{ product.description }}</Typography>
       <div class="flex items-center gap-2 justify-between">
-        <Typography>€{{ product.price }}</Typography>
+        <Typography>€{{ product.price * quantity }}</Typography>
         <Button
           :icon="wishListStore.isInWishlist(product.id) ? HeartIcon : HearIconOutlined"
           size="sm"

@@ -35,13 +35,15 @@ const typography = tv({
   },
 })
 
-const props = defineProps<{
+interface TypographyProps {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span'
   bold?: boolean
   textColor?: 'default' | 'primary' | 'secondary' | 'success' | 'error' | 'white' | 'black'
   as?: string
   class?: string | string[]
-}>()
+}
+
+const props = defineProps<TypographyProps>()
 </script>
 
 <template>

@@ -17,12 +17,17 @@ import { useCategoriesQuery } from '@/queries/useCategories.ts'
 import { useRoute } from 'vue-router'
 import useUserStore from '@/stores/user.ts'
 import LoginModal from '@/components/LoginModal.vue'
+import useCartStore from '@/stores/cart.ts'
+import Badge from '@/components/ui/Badge.vue'
+import useWishlistStore from '@/stores/wishlist.ts'
 
 const route = useRoute()
 const menuOpen = ref(false)
 const isDark = useDark()
 const toggleTheme = useToggle(isDark)
 const userStore = useUserStore()
+const cartStore = useCartStore()
+const wishlistStore = useWishlistStore()
 const showLoginModal = ref(false)
 
 const { data: categories = [] } = useCategoriesQuery()
@@ -72,17 +77,19 @@ const toggleMenu = () => {
       <div class="flex items-center gap-2">
         <router-link
           to="/wishlist"
-          class="border-0 px-2 text-gray-700 dark:text-gray-300"
+          class="border-0 px-2 text-gray-700 dark:text-gray-300 relative"
           v-if="userStore.isLoggedIn"
         >
           <HeartIcon class="size-5" />
+          <Badge :count="wishlistStore.totalQuantity" size="sm" />
         </router-link>
         <router-link
           to="/cart"
-          class="border-0 px-2 text-gray-700 dark:text-gray-300"
+          class="border-0 px-2 text-gray-700 dark:text-gray-300 relative"
           v-if="userStore.isLoggedIn"
         >
           <ShoppingCartIcon class="size-5" />
+          <Badge :count="cartStore.totalQuantity" size="sm" />
         </router-link>
         <Button
           @click="toggleTheme()"
@@ -127,5 +134,3 @@ const toggleMenu = () => {
   </header>
   <LoginModal v-model:show="showLoginModal" />
 </template>
-
-<style scoped></style>

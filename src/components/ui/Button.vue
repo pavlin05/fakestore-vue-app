@@ -98,7 +98,7 @@ interface ButtonProps {
   variant?: 'outlined' | 'contained'
   color?: 'default' | 'primary' | 'secondary' | 'success' | 'error' | 'warning'
   size?: 'sm' | 'md' | 'lg'
-  class?: string
+  class?: string | string[]
   type?: 'button' | 'submit' | 'reset'
 }
 

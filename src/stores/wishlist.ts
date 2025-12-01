@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
 import type { Product } from '@/api/products.ts'
 import useUserStore from '@/stores/user.ts'
+import { computed } from 'vue'
 
 const useWishlistStore = defineStore('wishlist', () => {
   const userStore = useUserStore()
@@ -23,12 +24,15 @@ const useWishlistStore = defineStore('wishlist', () => {
     wishlist.value = []
   }
 
+  const totalQuantity = computed(() => wishlist.value.length)
+
   return {
     wishlist,
     addToWishlist,
     removeFromWishlist,
     isInWishlist,
     clearWishlist,
+    totalQuantity,
   }
 })
 
