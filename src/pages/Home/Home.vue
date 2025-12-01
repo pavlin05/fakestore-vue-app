@@ -16,8 +16,8 @@ const { data: products, isLoading } = useProductsQuery(category)
     <ArrowPathIcon class="size-10 animate-spin dark:text-white" />
   </div>
   <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div v-for="product in products" :key="product.id">
+    <template v-for="product in products" :key="product.id">
       <ProductCard :product="product" />
-    </div>
+    </template>
   </div>
 </template>
