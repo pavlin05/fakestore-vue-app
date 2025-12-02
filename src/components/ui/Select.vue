@@ -35,7 +35,7 @@ const onChange = (e: Event) => {
       </option>
     </select>
     <ChevronDownIcon
-      class="pointer-events-none absolute right-2 top-1/2 transform -translate-y-1/2 size-5"
+      class="pointer-events-none absolute right-2 top-1/2 transform -translate-y-1/2 size-5 dark:text-gray-200 text-gray-800"
     />
   </div>
 </template>
