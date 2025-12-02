@@ -1,5 +1,13 @@
 const BASE_URL = import.meta.env.VITE_API_BASE_URL
 
+export enum SortOrderEnum {
+  Default = '',
+  PriceAsc = 'price-asc',
+  PriceDesc = 'price-desc',
+  NameAsc = 'name-asc',
+  NameDesc = 'name-desc',
+}
+
 export interface Product {
   id: number
   title: string
