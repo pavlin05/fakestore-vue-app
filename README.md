@@ -4,6 +4,7 @@ This project is the solution for the **QubicaAMF frontend challenge**.
 It is an e-commerce web app built with **Vue 3, TypeScript, Tailwind CSS**, and deployed on **GitHub Pages**.
 
 **Backend API used:** [Fake Store API](https://fakestoreapi.com/docs)
+
 **Live Demo:** [https://pavlin05.github.io/vue-qubica-test/](https://pavlin05.github.io/vue-qubica-test/)
 
 ## Main Libraries

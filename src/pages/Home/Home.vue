@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useProductsQuery } from '@/queries/useProducts.ts'
-import { useRoute } from 'vue-router'
-import { computed, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { computed, ref, watch } from 'vue'
 import ProductCard from '@/components/ProductCard.vue'
 import { ArrowPathIcon } from '@heroicons/vue/24/solid'
 import { SortOrderEnum } from '@/api/products.ts'
@@ -10,8 +10,9 @@ import Typography from '@/components/ui/Typography.vue'
 import Select from '@/components/ui/Select.vue'
 
 const route = useRoute()
+const router = useRouter()
 const category = computed(() => route.query.category as string | undefined)
-const sortOrder = ref<SortOrderEnum>(SortOrderEnum.Default)
+const sortOrder = ref<SortOrderEnum>((route.query.sort as SortOrderEnum) || SortOrderEnum.Default)
 
 const { data: products, isLoading } = useProductsQuery(category)
 
@@ -42,6 +43,18 @@ const sortOptions = [
     value: SortOrderEnum.NameDesc,
   },
 ]
+
+watch(sortOrder, (value) => {
+  const query = { ...route.query }
+
+  if (value !== SortOrderEnum.Default) {
+    query.sort = value
+  } else {
+    delete query.sort
+  }
+
+  router.replace({ query })
+})
 </script>
 
 <template>

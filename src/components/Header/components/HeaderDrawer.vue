@@ -21,7 +21,13 @@ const { data: categories = [] } = useCategoriesQuery()
     }`"
   >
     <li v-for="category in categories" :key="category" class="p-8 text-center">
-      <router-link @click="toggleMenu" :to="`/?category=${category}`">
+      <router-link
+        @click="toggleMenu"
+        :to="{
+          path: '/',
+          query: { ...route.query, category: category },
+        }"
+      >
         <Typography
           variant="span"
           :class="[

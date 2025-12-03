@@ -41,7 +41,13 @@ const onOpenLoginModal = () => {
       </router-link>
       <ul class="hidden md:flex gap-6">
         <li v-for="category in categories" :key="category">
-          <router-link :to="`/?category=${category}`" active-class="text-blue-600">
+          <router-link
+            :to="{
+              path: '/',
+              query: { ...route.query, category: category },
+            }"
+            active-class="text-blue-600"
+          >
             <Typography
               variant="span"
               :class="[
