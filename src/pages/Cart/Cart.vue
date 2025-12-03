@@ -27,7 +27,7 @@ const cartStore = useCartStore()
   </div>
 </template>
 
-<style>
+<style scoped>
 .fade-move,
 .fade-enter-active,
 .fade-leave-active {

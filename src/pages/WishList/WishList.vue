@@ -27,7 +27,7 @@ const wishlistStore = useWishlistStore()
   </div>
 </template>
 
-<style>
+<style scoped>
 .list-move,
 .list-enter-active,
 .list-leave-active {
