@@ -25,7 +25,9 @@ const onOpenLoginModal = () => {
 </script>
 
 <template>
-  <header class="h-20 shadow-xl bg-gray-200 dark:bg-gray-800 transition-colors duration-300 z-1">
+  <header
+    class="sticky top-0 h-20 shadow-xl bg-gray-200 dark:bg-gray-800 transition-colors duration-300 z-1"
+  >
     <nav class="h-[inherit] flex items-center justify-between mx-auto p-4 md:p-6">
       <Button
         size="lg"
@@ -36,8 +38,8 @@ const onOpenLoginModal = () => {
       <router-link to="/" class="flex items-center gap-1">
         <CubeIcon class="size-5 text-blue-600 dark:text-blue-400" />
         <Typography variant="p" text-color="primary" bold class="dark:text-blue-400"
-          >MyStore</Typography
-        >
+          >MyStore
+        </Typography>
       </router-link>
       <ul class="hidden md:flex gap-6">
         <li v-for="category in categories" :key="category">
@@ -63,8 +65,8 @@ const onOpenLoginModal = () => {
         </li>
       </ul>
       <HeaderIcons :onOpenLoginModal="onOpenLoginModal" />
-      <HeaderDrawer :menuOpen="menuOpen" :toggleMenu="toggleMenu" />
     </nav>
+    <HeaderDrawer :menuOpen="menuOpen" :toggleMenu="toggleMenu" />
   </header>
   <LoginModal v-model:show="showLoginModal" />
 </template>

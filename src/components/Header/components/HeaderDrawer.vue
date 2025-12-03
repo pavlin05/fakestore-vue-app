@@ -16,7 +16,7 @@ const { data: categories = [] } = useCategoriesQuery()
 
 <template>
   <ul
-    :class="`fixed top-20 w-full h-[calc(100vh-80px)] bg-gray-100 dark:bg-gray-900 transition-transform duration-300 overflow-hidden ${
+    :class="`fixed top-20 w-full h-[calc(100vh-80px)] bg-gray-100 dark:bg-gray-900 transition-transform duration-300 overflow-hidden md:hidden ${
       menuOpen ? 'translate-x-0' : '-translate-x-full'
     }`"
   >
