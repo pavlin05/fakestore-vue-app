@@ -3,14 +3,15 @@ import { useRoute } from 'vue-router'
 import { useProductsByIdQuery } from '@/queries/useProducts.ts'
 import {
   ArrowPathIcon,
+  CheckCircleIcon,
   HeartIcon,
   MinusIcon,
   PlusIcon,
-  ShoppingCartIcon,
+  ShoppingCartIcon
 } from '@heroicons/vue/24/solid'
 import Typography from '@/components/ui/Typography.vue'
 import Button from '@/components/ui/Button.vue'
-import { HeartIcon as HearIconOutlined } from '@heroicons/vue/24/outline'
+import { HeartIcon as HearIconOutlined, TrashIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
 import useUserStore from '@/stores/user.ts'
 import useWishlistStore from '@/stores/wishlist.ts'
@@ -56,7 +57,7 @@ const onToggleWishlist = (product: Product) => {
       <Typography variant="h3" bold class="uppercase">{{ product.title }}</Typography>
       <Typography>{{ product.description }}</Typography>
       <div class="flex items-center gap-2 justify-between">
-        <Typography>€{{ product.price * quantity }}</Typography>
+        <Typography bold>€{{ product.price }}</Typography>
         <Button
           :icon="wishListStore.isInWishlist(product.id) ? HeartIcon : HearIconOutlined"
           size="sm"
@@ -64,28 +65,36 @@ const onToggleWishlist = (product: Product) => {
           @click="onToggleWishlist(product)"
         />
       </div>
-      <div class="flex items-center gap-5" v-if="userStore.isLoggedIn">
-        <Button @click="onDecreaseQuantity" :icon="MinusIcon" size="sm" />
-        <Typography variant="span">{{ quantity }}</Typography>
-        <Button @click="onIncreaseQuantity" :icon="PlusIcon" size="sm" />
-      </div>
-      <div v-if="userStore.isLoggedIn" class="flex flex-col md:flex-row gap-5 justify-between">
-        <Button
-          color="primary"
-          title="Add to Cart"
-          class="md:w-fit"
-          :icon="ShoppingCartIcon"
-          @click="cartStore.addToCart(product, quantity)"
-        />
-        <Button
-          v-if="cartStore.isInCart(product.id)"
-          color="error"
-          title="Remove from Cart"
-          class="md:w-fit"
-          :icon="ShoppingCartIcon"
-          @click="cartStore.removeFromCart(product.id)"
-        />
-      </div>
+      <template v-if="userStore.isLoggedIn">
+        <div v-if="cartStore.isInCart(product.id)" class="flex flex-col gap-5 w-full">
+          <div class="flex gap-1 items-center text-green-500">
+            <CheckCircleIcon class="size-6" />
+            <Typography bold variant="h4">Product added to Cart</Typography>
+          </div>
+          <Button
+            v-if="cartStore.isInCart(product.id)"
+            color="error"
+            title="Remove from Cart"
+            class="md:w-fit"
+            :icon="TrashIcon"
+            @click="cartStore.removeFromCart(product.id)"
+          />
+        </div>
+        <div v-else class="flex flex-col gap-5 w-full">
+          <div class="flex items-center gap-5">
+            <Button @click="onDecreaseQuantity" :icon="MinusIcon" size="sm" />
+            <Typography variant="span">{{ quantity }}</Typography>
+            <Button @click="onIncreaseQuantity" :icon="PlusIcon" size="sm" />
+          </div>
+          <Button
+            color="primary"
+            title="Add to Cart"
+            class="md:w-fit"
+            :icon="ShoppingCartIcon"
+            @click="cartStore.addToCart(product, quantity)"
+          />
+        </div>
+      </template>
     </div>
   </div>
 </template>
