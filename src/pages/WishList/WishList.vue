@@ -14,7 +14,7 @@ const wishlistStore = useWishlistStore()
   </div>
   <div v-else class="flex flex-col gap-5">
     <Typography variant="h2">My WishList</Typography>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <TransitionGroup name="list" tag="div" class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div v-for="product in wishlistStore.wishlist" :key="product.id" class="relative">
         <Button
           class="absolute top-1 right-1 border-0 p-2 bg-transparent"
@@ -23,8 +23,24 @@ const wishlistStore = useWishlistStore()
         />
         <ProductCard :product="product" />
       </div>
-    </div>
+    </TransitionGroup>
   </div>
 </template>
 
-<style scoped></style>
+<style>
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.list-leave-active {
+  position: absolute;
+}
+</style>

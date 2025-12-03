@@ -7,7 +7,7 @@ import {
   HeartIcon,
   MinusIcon,
   PlusIcon,
-  ShoppingCartIcon
+  ShoppingCartIcon,
 } from '@heroicons/vue/24/solid'
 import Typography from '@/components/ui/Typography.vue'
 import Button from '@/components/ui/Button.vue'
