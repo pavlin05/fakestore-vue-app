@@ -25,7 +25,7 @@ const { data: categories = [] } = useCategoriesQuery()
         @click="toggleMenu"
         :to="{
           path: '/',
-          query: { ...route.query, category: category },
+          query: { category },
         }"
       >
         <Typography

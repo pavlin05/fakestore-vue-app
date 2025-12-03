@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { useProductsQuery } from '@/queries/useProducts.ts'
-import { useRoute, useRouter } from 'vue-router'
-import { computed, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { computed, ref, watch, watchEffect } from 'vue'
 import ProductCard from '@/components/ProductCard.vue'
 import { ArrowPathIcon } from '@heroicons/vue/24/solid'
 import { SortOrderEnum } from '@/api/products.ts'
 import ProductsUtils from '@/utils/ProductsUtils.ts'
 import Typography from '@/components/ui/Typography.vue'
 import Select from '@/components/ui/Select.vue'
+import router from '@/router'
 
 const route = useRoute()
-const router = useRouter()
 const category = computed(() => route.query.category as string | undefined)
 const sortOrder = ref<SortOrderEnum>((route.query.sort as SortOrderEnum) || SortOrderEnum.Default)
 
@@ -46,14 +46,16 @@ const sortOptions = [
 
 watch(sortOrder, (value) => {
   const query = { ...route.query }
-
   if (value !== SortOrderEnum.Default) {
     query.sort = value
   } else {
     delete query.sort
   }
-
   router.replace({ query })
+})
+
+watchEffect(() => {
+  sortOrder.value = (route.query.sort as SortOrderEnum) || SortOrderEnum.Default
 })
 </script>
 

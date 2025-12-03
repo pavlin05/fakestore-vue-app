@@ -46,7 +46,7 @@ const onOpenLoginModal = () => {
           <router-link
             :to="{
               path: '/',
-              query: { ...route.query, category: category },
+              query: { category },
             }"
             active-class="text-blue-600"
           >
