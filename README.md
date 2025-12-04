@@ -1,54 +1,76 @@
-# vue-qubica-test
+# Vue Qubica Test - QubicaAMF Frontend Challenge
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is the solution for the **QubicaAMF frontend challenge**.  
+It is an e-commerce web app built with **Vue 3, TypeScript, Tailwind CSS**, and deployed on **GitHub Pages**.
 
-## Recommended IDE Setup
+**Backend API used:** [Fake Store API](https://fakestoreapi.com/docs)
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+**Live Demo:** [https://pavlin05.github.io/vue-qubica-test/](https://pavlin05.github.io/vue-qubica-test/)
 
-## Recommended Browser Setup
+## Main Libraries
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- **Vue 3**: The core framework for building the user interface.
+- **TypeScript**: Adds static typing to JavaScript, enhancing code quality and developer productivity.
+- **Vue Router**: The official router for Vue.js, used for navigation and routing in the single-page application.
+- **Pinia**: A state management library for Vue 3, used for managing global state in the application.
+- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
+- **Heroicons**: A set of free, MIT-licensed high-quality SVG icons for you to use in your web projects.
+- **Tailwind Variants**: A utility for Tailwind CSS that allows you to create custom utility classes.
+- **VueUse**: A collection of utility functions for Vue 3, used for common tasks like state management and DOM manipulations.
+- **TankStack Query**: A library for fetching, caching, and updating data in Vue 3 applications.
 
-## Type Support for `.vue` Imports in TS
+## Prerequisites
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Node.js `v20` or `>=22`
+- npm (comes with Node.js)
 
-## Customize configuration
+Check Node.js version:
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```bash
+node -version
 ```
 
-### Compile and Hot-Reload for Development
+## Environment Variables
 
-```sh
-npm run dev
+This project uses a **.env** file to store environment variables.  
+The main variable is:
+
+```bash
+VITE_API_BASE_URL=https://fakestoreapi.com
 ```
 
-### Type-Check, Compile and Minify for Production
+## Setup and Installation
 
-```sh
-npm run build
-```
+1. **Clone the repository:**
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+   ```bash
+   git clone https://github.com/pavlin05/vue-qubica-test.git
+   cd vue-qubica-test
+   ```
 
-```sh
-npm run test:unit
-```
+2. **Install dependencies:**
 
-### Lint with [ESLint](https://eslint.org/)
+   ```bash
+   npm install
+   ```
 
-```sh
-npm run lint
-```
+3. **Run the development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+   The app will be available at `http://localhost:5173` (or the port specified in the output).
+
+4. **Build for Production:**
+
+   ```bash
+   npm run build
+   ```
+
+5. **Deploy to GitHub Pages:**
+   The project is configured with a **predeploy script**, so the deployment process automatically builds the project before publishing.
+
+   ```bash
+   npm run deploy
+   ```

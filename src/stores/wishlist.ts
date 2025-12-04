@@ -1,12 +1,10 @@
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
 import type { Product } from '@/api/products.ts'
-import useUserStore from '@/stores/user.ts'
 import { computed } from 'vue'
 
 const useWishlistStore = defineStore('wishlist', () => {
-  const userStore = useUserStore()
-  const wishlist = useLocalStorage<Product[]>(`wishlist_${userStore.id}`, [])
+  const wishlist = useLocalStorage<Product[]>('wishlist', [])
 
   const addToWishlist = (product: Product) => {
     wishlist.value.push(product)

@@ -14,11 +14,9 @@ const cartStore = useCartStore()
   <div v-else class="flex flex-col gap-5">
     <Typography variant="h2">My Cart</Typography>
     <div class="flex flex-col md:flex-row gap-5">
-      <div class="flex flex-col gap-5 md:w-2/3">
-        <template v-for="product in cartStore.cartItem" :key="product.id">
-          <CartItemCard :cartItem="product" />
-        </template>
-      </div>
+      <TransitionGroup name="fade" tag="div" class="flex flex-col gap-5 md:w-2/3">
+        <CartItemCard v-for="product in cartStore.cartItem" :key="product.id" :cartItem="product" />
+      </TransitionGroup>
       <div class="flex flex-col gap-5 md:w-1/3">
         <div class="flex flex-row justify-between">
           <Typography variant="h2">Total</Typography>
@@ -29,4 +27,16 @@ const cartStore = useCartStore()
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scaleY(0.95);
+}
+</style>

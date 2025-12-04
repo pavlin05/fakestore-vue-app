@@ -1,7 +1,6 @@
 import type { Product } from '@/api/products.ts'
 import { useLocalStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
-import useUserStore from '@/stores/user.ts'
 import { computed } from 'vue'
 
 export interface CartItem extends Product {
@@ -9,8 +8,7 @@ export interface CartItem extends Product {
 }
 
 const useCartStore = defineStore('cart', () => {
-  const userStore = useUserStore()
-  const cartItem = useLocalStorage<CartItem[]>(`cart_${userStore.id}`, [])
+  const cartItem = useLocalStorage<CartItem[]>('cart', [])
 
   const addToCart = (product: Product, quantity: number) => {
     const existingProduct = cartItem.value.find((p) => p.id === product.id)
