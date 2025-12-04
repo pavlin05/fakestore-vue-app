@@ -1,19 +1,23 @@
 <script setup lang="ts">
 import { useProductsQuery } from '@/queries/useProducts.ts'
 import { useRoute } from 'vue-router'
-import { computed, ref, watch, watchEffect } from 'vue'
+import { computed } from 'vue'
 import ProductCard from '@/components/ProductCard.vue'
 import { ArrowPathIcon } from '@heroicons/vue/24/solid'
-import { SortOrderEnum } from '@/api/products.ts'
 import ProductsUtils from '@/utils/ProductsUtils.ts'
 import Typography from '@/components/ui/Typography.vue'
 import Select from '@/components/ui/Select.vue'
-import router from '@/router'
+import useSortProduct from '@/composables/useSortProducts.ts'
+import Button from '@/components/ui/Button.vue'
+import usePaginationProducts from '@/composables/usePaginationProducts.ts'
 
 const route = useRoute()
-const category = computed(() => route.query.category as string | undefined)
-const sortOrder = ref<SortOrderEnum>((route.query.sort as SortOrderEnum) || SortOrderEnum.Default)
+// TODO: fakeStoreAPI does not support sorting or pagination.
+// these filters are simulated on the frontend, but should be handled by the BE in a real implementation.
+const { sortOptions, sortOrder } = useSortProduct()
+const { itemsPerPage, currentPage } = usePaginationProducts()
 
+const category = computed(() => route.query.category as string | undefined)
 const { data: products, isLoading } = useProductsQuery(category)
 
 const sortedProducts = computed(() => {
@@ -21,41 +25,12 @@ const sortedProducts = computed(() => {
   return ProductsUtils.sortProducts(products.value, sortOrder.value)
 })
 
-const sortOptions = [
-  {
-    label: 'Default',
-    value: SortOrderEnum.Default,
-  },
-  {
-    label: 'Price: Low → High',
-    value: SortOrderEnum.PriceAsc,
-  },
-  {
-    label: 'Price: High → Low',
-    value: SortOrderEnum.PriceDesc,
-  },
-  {
-    label: 'Name: A → Z',
-    value: SortOrderEnum.NameAsc,
-  },
-  {
-    label: 'Name: Z → A',
-    value: SortOrderEnum.NameDesc,
-  },
-]
+const totalPages = computed(() => Math.ceil(sortedProducts.value.length / itemsPerPage.value))
 
-watch(sortOrder, (value) => {
-  const query = { ...route.query }
-  if (value !== SortOrderEnum.Default) {
-    query.sort = value
-  } else {
-    delete query.sort
-  }
-  router.replace({ query })
-})
-
-watchEffect(() => {
-  sortOrder.value = (route.query.sort as SortOrderEnum) || SortOrderEnum.Default
+const paginatedProducts = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value
+  const end = start + itemsPerPage.value
+  return sortedProducts.value.slice(start, end)
 })
 </script>
 
@@ -69,9 +44,18 @@ watchEffect(() => {
       <Select v-model="sortOrder" :options="sortOptions" />
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <template v-for="product in sortedProducts" :key="product.id">
+      <template v-for="product in paginatedProducts" :key="product.id">
         <ProductCard :product="product" />
       </template>
+    </div>
+    <div class="flex gap-2 justify-center mt-4">
+      <Button
+        v-for="page in totalPages"
+        :key="page"
+        :color="page === currentPage ? 'primary' : 'default'"
+        @click="currentPage = page"
+        :title="page.toString()"
+      />
     </div>
   </div>
 </template>
