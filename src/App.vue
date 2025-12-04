@@ -1,11 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Header from '@/components/Header/Header.vue'
+import Main from '@/components/Main.vue'
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div class="flex flex-col min-h-dvh">
+    <Header />
+    <Main>
+      <router-view />
+    </Main>
+  </div>
+  <VueQueryDevtools />
 </template>
-
-<style scoped></style>

@@ -13,16 +13,32 @@ export default defineConfigWithVueTs(
   {
     name: 'app/files-to-lint',
     files: ['**/*.{ts,mts,tsx,vue}'],
+    rules: {
+      quotes: ['error', 'single'],
+      'vue/no-unused-vars': 'error',
+      'vue/no-unused-components': 'error',
+      'prettier/prettier': ['error', { singleQuote: true, semi: false }],
+      'no-multiple-empty-lines': ['error', { max: 1 }],
+      // TypeScript rules
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+    },
   },
 
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
 
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
-  
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
   },
+  
   skipFormatting,
+  {
+    rules: {
+      'vue/multi-word-component-names': 'off',
+    },
+  },
 )
