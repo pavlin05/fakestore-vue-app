@@ -1,11 +1,10 @@
-# Vue Qubica Test - QubicaAMF Frontend Challenge
+# Fakestore Vue App
 
-This project is the solution for the **QubicaAMF frontend challenge**.  
-It is an e-commerce web app built with **Vue 3, TypeScript, Tailwind CSS**, and deployed on **GitHub Pages**.
+This project is an e-commerce web app built with **Vue 3, TypeScript, Tailwind CSS**, and deployed on **GitHub Pages**.
 
 **Backend API used:** [Fake Store API](https://fakestoreapi.com/docs)
 
-**Live Demo:** [https://pavlin05.github.io/vue-qubica-test/](https://pavlin05.github.io/vue-qubica-test/)
+**Live Demo:** [https://pavlin05.github.io/fakestore-vue-app/](https://pavlin05.github.io/fakestore-vue-app/)
 
 ## Main Libraries
 
@@ -44,8 +43,8 @@ VITE_API_BASE_URL=https://fakestoreapi.com
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/pavlin05/vue-qubica-test.git
-   cd vue-qubica-test
+   git clone https://github.com/pavlin05/fakestore-vue-app.git
+   cd fakestore-vue-app
    ```
 
 2. **Install dependencies:**

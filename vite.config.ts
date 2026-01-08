@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/vue-qubica-test/',
+  base: '/fakestore-vue-app/',
   plugins: [
     vue(),
     vueDevTools(),
